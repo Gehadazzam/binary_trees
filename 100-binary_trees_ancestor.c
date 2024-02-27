@@ -39,7 +39,7 @@ const binary_tree_t *first, const binary_tree_t *second)
 	first_d = binary_tree_depth(first);
 	second_d = binary_tree_depth(second);
 
-	while ((first_d > second_d) || (second_d > first_d) || (first && second))
+	while ((first_d > second_d) || (second_d > first_d))
 	{
 		if (first_d > second_d)
 		{
@@ -51,6 +51,9 @@ const binary_tree_t *first, const binary_tree_t *second)
 			second = second->parent;
 			second_d--;
 		}
+	}
+	while (first && second)
+	{
 		if (first == second)
 			return ((binary_tree_t *)first);
 		first = first->parent;
