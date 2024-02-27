@@ -25,6 +25,7 @@ int helper(const binary_tree_t *t, int min_v, int max_v)
 int binary_tree_is_bst(const binary_tree_t *tree)
 {
 	int min_v = INT_MIN, max_v = INT_MAX;
+
 	if (tree == NULL)
 		return (0);
 	return (helper(tree, min_v, max_v));
