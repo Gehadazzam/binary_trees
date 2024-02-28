@@ -3,10 +3,8 @@
  * helper_sorted - recursive helper function for sorted_array_to_avl
  * @array: pointer to the first element of the array
  * @parent: pointer to the parent node
- * @start: starting index of the subarray
- * @end: ending index of the subarray
- * Return: pointer to the root node of the created AVL tree
- * or NULL on failure
+ * @min: starting index of the subarray
+ * @max: ending index of the subarray
  */
 void helper_sorted(int *array, avl_t **parent, size_t min, size_t max)
 {
