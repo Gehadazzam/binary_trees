@@ -1,6 +1,75 @@
 #include "binary_trees.h"
 
 /**
+*helper_successor - help to check if node
+*@root: tree to be checked
+*Return: 0
+*/
+int helper_successor(bst_t *root)
+{
+	size_t i = 0;
+
+	if (root == NULL)
+		return (0);
+
+	else
+	{
+		i = helper_successor(root->left);
+		if (i == 0)
+			return (root->n);
+		return (i);
+	}
+}
+
+/**
+*helper - help to check if node
+*@root: tree to be checked
+*Return: 0
+*/
+int helper(bst_t *root)
+{
+	size_t i = 0;
+
+	if (root->left == NULL && root->right == NULL)
+	{
+		if (root->parent->right == root)
+			root->parent->right = NULL;
+		else
+			root->parent->left = NULL;
+		free(root);
+		return (0);
+	}
+	else if ((root->left == NULL && root->right) ||
+		(root->right == NULL && root->left))
+	{
+		if (root->left == NULL)
+		{
+			if (root->parent->right == root)
+				root->parent->right = root->right;
+			else
+				root->parent->left = root->right;
+			root->right->parent = root->parent;
+		}
+		if (root->right == NULL)
+		{
+			if (root->parent->right == root)
+				root->parent->right = root->left;
+			else
+				root->parent->left = root->left;
+			root->left->parent = root->parent;
+		}
+		free(root);
+		return (0);
+	}
+	else
+	{
+		i = helper_successor(root->right);
+		root->n = i;
+		return (i);
+	}
+}
+
+/**
 *bst_remove - remove a node from a bst
 *@root: pointer to the root
 *@value: value to be removed
@@ -8,36 +77,24 @@
 */
 bst_t *bst_remove(bst_t *root, int value)
 {
-	bst_t *child;
+	size_t i = 0;
 
 	if (root == NULL)
 		return (NULL);
 	if (value < root->n)
-		root->left = bst_remove(root->left, value);
+		bst_remove(root->left, value);
 	else if (value > root->n)
-		root->right = bst_remove(root->right, value);
+		bst_remove(root->right, value);
 	else
 	{
-		if (root->left == NULL)
+		if (value == root->n)
 		{
-			child = root->right;
-			free(root);
-			return (child);
-		}
-		else if (root->right == NULL)
-		{
-			child = root->left;
-			free(root);
-			return (child);
+			i = helper(root);
+			if (i != 0)
+				bst_remove(root->right, i);
 		}
 		else
-		{
-			child = root->right;
-			while (child->left  != NULL)
-				child = child->left;
-			root->n = child->n;
-			root->right = bst_remove(root->right, child->n);
-		}
+			return (NULL);
 	}
 	return (root);
 }
