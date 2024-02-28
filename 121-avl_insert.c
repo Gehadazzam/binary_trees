@@ -14,7 +14,6 @@ avl_t *helper(avl_t **tree, avl_t *parent, avl_t **new, int value_n)
 
 	if (*tree == NULL)
 		return (*new = binary_tree_node(parent, value_n));
-
 	if ((*tree)->n > value_n)
 	{
 		(*tree)->left = helper(&(*tree)->left, *tree, new, value_n);
@@ -29,9 +28,7 @@ avl_t *helper(avl_t **tree, avl_t *parent, avl_t **new, int value_n)
 	}
 	else
 		return (*tree);
-
 	value_b = binary_tree_balance(*tree);
-
 	if (value_b < -1)
 	{
 		if ((*tree)->right->n < value_n)
@@ -59,7 +56,7 @@ avl_t *helper(avl_t **tree, avl_t *parent, avl_t **new, int value_n)
  * avl_insert - insert a value to avl tree
  * @tree: tree to work with
  * @value: value to be added
- * @Return: pointer to the tree
+ * Return: pointer to the tree
  */
 avl_t *avl_insert(avl_t **tree, int value)
 
