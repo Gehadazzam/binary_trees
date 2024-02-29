@@ -44,32 +44,30 @@ void heap_tree_preorder(heap_t *root, heap_t **tree, size_t h)
 void heap_helper(heap_t *t)
 {
 	int value;
-	heap_t *tmp1, *tmp2;
+	heap_t *new, *old;
 
 	if (!t)
 		return;
-
-	tmp1 = t;
-
+	new = t;
 	while (1)
 	{
-		if (!tmp1->left)
+		if (!new->left)
 			break;
-		if (!tmp1->right)
-			tmp2 = tmp1->left;
+		if (!new->right)
+			old = new->left;
 		else
 		{
-			if (tmp1->left->n > tmp1->right->n)
-				tmp2 = tmp1->left;
+			if (new->left->n > new->right->n)
+				old = new->left;
 			else
-				tmp2 = tmp1->right;
+				old = new->right;
 		}
-		if (tmp1->n > tmp2->n)
+		if (new->n > old->n)
 			break;
-		value = tmp1->n;
-		tmp1->n = tmp2->n;
-		tmp2->n = value;
-		tmp1 = tmp2;
+		value = new->n;
+		new->n = old->n;
+		old->n = value;
+		new = old;
 	}
 }
 /**
