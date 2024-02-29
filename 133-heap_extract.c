@@ -1,24 +1,6 @@
 #include "binary_trees.h"
 
 /**
- * heap_tree_size - Measures the size of a binary tree
- * @tree: Pointer to the root node of the tree to measure the size
- * Return: Size of the tree, 0 if tree is NULL
- */
-size_t heap_tree_size(const binary_tree_t *tree)
-{
-	size_t size_left = 0, size_right = 0;
-
-	if (tree == NULL)
-		return (0);
-	if (tree->left)
-		size_left = 1 + heap_tree_size(tree->left);
-	if (tree->right)
-		size_right = 1 + heap_tree_size(tree->right);
-	return (size_left + size_right);
-}
-
-/**
  * heap_tree_height - Measures the height of a binary tree
  * @tree: Pointer to the root node of the tree to measure the height
  * Return: Height of the tree, 0 if tree is NULL
