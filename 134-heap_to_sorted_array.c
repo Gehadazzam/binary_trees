@@ -13,10 +13,10 @@ size_t heap_tree_size(const binary_tree_t *tree)
 	if (tree == NULL)
 		return (0);
 	if (tree->left)
-		size_left = 1 + heap_tree_size(tree->left);
+		size_left = heap_tree_size(tree->left);
 	if (tree->right)
-		size_right = 1 + heap_tree_size(tree->right);
-	return (size_left + size_right);
+		size_right = heap_tree_size(tree->right);
+	return (size_left + size_right + 1);
 }
 
 /**
@@ -39,11 +39,6 @@ int *heap_to_sorted_array(heap_t *heap, size_t *size)
 	while (heap)
 	{
 		sorted_array[i] = heap_extract(&heap);
-		if (sorted_array[i] == 0)
-		{
-			free(sorted_array);
-			return (NULL);
-		}
 		i++;
 	}
 	return (sorted_array);
